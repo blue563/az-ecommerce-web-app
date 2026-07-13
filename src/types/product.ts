@@ -1,0 +1,18 @@
+// following products' structures suggested at https://fakestoreapi.com/products/1
+export interface ProductRating{
+    rate: number,
+    count: number
+}
+
+
+export interface Product{
+    id: number,
+    title: string,
+    price: number,
+    description: string,
+    category: string,
+    image: string,
+    rating: ProductRating
+}
+
+export type Category = string

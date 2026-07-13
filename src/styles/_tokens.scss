@@ -1,0 +1,30 @@
+:root {
+    --color-primary: #009900;
+    --color-bg: #adcc00;
+    --color-text: #1a1a1a;
+    --space-4: 1rem;
+    --radius-md: 8px;
+
+    --color-surface: #990099;
+    --color-border: #000000;
+    --color-header-dark: #131921;
+    --color-header-light: #232f3e;
+}
+
+:root[data-theme='dark'] {
+    --color-bg: #000066;
+    --color-text: #ffffcc;
+}
+
+.home__hero {
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius-md);
+  padding: var(--space-8) var(--space-5);
+  color: navy;
+  margin-bottom: var(--space-6);
+
+  h1 {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+}
