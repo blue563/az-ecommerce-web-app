@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { fetchCategories } from '@/api/products'
-const categories = ref<string[]>([])
-onMounted(async () => {
-    categories.value = await fetchCategories()
-})
+import { onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useProductsStore } from '@/stores/products'
+
+const store = useProductsStore()
+const { categories } = storeToRefs(store)
+
+onMounted(() => store.loadCategories())
 </script>
 
 <template>

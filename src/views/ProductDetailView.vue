@@ -1,44 +1,44 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { fetchProductById } from '@/api/products';
+import { onMounted, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import { useProductsStore } from '@/stores/products';
+import { ApiError } from '@/api/client';
 import type { Product } from '@/types/product';
 
 const route = useRoute()
-const router = useRouter()
+const store = useProductsStore()
 
-const product = ref<Product | null>(null) //normal, data-ready state
-const isLoading = ref(true) //loading product's data state
-const error = ref<string | null>(null) //error state
+const product = ref<Product | null>(null)
+const isLoading = ref(true)
+const error = ref<string | null>(null)
 
 async function loadProduct() {
-    const id = Number(route.params.id)
+  const id = Number(route.params.id)
+  isLoading.value = true
+  error.value = null
 
-    isLoading.value = true
-    error.value = null
-
-    try {
-        product.value = await fetchProductById(id)
-    } catch (err) {
-        error.value = 'Something went wrong during product loading.'
-    } finally {
-        isLoading.value = false
-    }
+  try{
+    product.value = await store.loadProductById(id)
+  }catch (err){
+    error.value = 'Something went wrong during product loading.'
+  } finally{
+    isLoading.value = false
+  }
+  
 }
 
 onMounted(loadProduct)
-
+watch(() => route.params.id, loadProduct)//useful for future "related/advised products" section inside this view
 </script>
 
 <template>
   <p v-if="isLoading">Loading...</p>
   <p v-else-if="error">{{ error }}</p>
-  
-  <article v-else-if="product">
+
+  <article v-if="product">
     <img :src="product.image" :alt="product.title" />
     <h1>{{ product.title }}</h1>
     <p>{{ product.price }} €</p>
     <p>{{ product.description }}</p>
   </article>
-
 </template>
