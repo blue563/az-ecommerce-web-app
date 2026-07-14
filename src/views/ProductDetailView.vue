@@ -7,24 +7,38 @@ import type { Product } from '@/types/product';
 const route = useRoute()
 const router = useRouter()
 
-const product = ref<Product | null>(null)
+const product = ref<Product | null>(null) //normal, data-ready state
+const isLoading = ref(true) //loading product's data state
+const error = ref<string | null>(null) //error state
 
-onMounted(async () => {
+async function loadProduct() {
     const id = Number(route.params.id)
-    // if (Number.isNaN(id)) {
-    //     router.replace({name : 'not-found' })
-    //     return
-    // }
 
-    product.value = await fetchProductById(id)
-})
+    isLoading.value = true
+    error.value = null
+
+    try {
+        product.value = await fetchProductById(id)
+    } catch (err) {
+        error.value = 'Something went wrong during product loading.'
+    } finally {
+        isLoading.value = false
+    }
+}
+
+onMounted(loadProduct)
+
 </script>
 
 <template>
-  <article v-if="product">
+  <p v-if="isLoading">Loading...</p>
+  <p v-else-if="error">{{ error }}</p>
+  
+  <article v-else-if="product">
     <img :src="product.image" :alt="product.title" />
     <h1>{{ product.title }}</h1>
     <p>{{ product.price }} €</p>
     <p>{{ product.description }}</p>
   </article>
+
 </template>
