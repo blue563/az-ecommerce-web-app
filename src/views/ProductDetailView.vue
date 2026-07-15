@@ -2,7 +2,6 @@
 import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProductsStore } from '@/stores/products';
-import { ApiError } from '@/api/client';
 import type { Product } from '@/types/product';
 import { useCartStore } from '@/stores/cart'
 import { useWishlistStore } from '@/stores/wishlist'
@@ -60,17 +59,19 @@ watch(() => route.params.id, loadProduct)//useful for future "related/advised pr
 </script>
 
 <template>
-  <p v-if="isLoading">Loading...</p>
-  <p v-else-if="error">{{ error }}</p>
+  <div>
+    <p v-if="isLoading">Loading...</p>
+    <p v-else-if="error">{{ error }}</p>
 
-  <article v-else-if="product">
-    <img :src="product.image" :alt="product.title" />
-    <h1>{{ product.title }}</h1>
-    <p>{{ product.price }} €</p>
-    <p>{{ product.description }}</p>
-    <button @click="onAddToCart">Add to cart</button>
-    <button @click="onToggleWishlist">
-      {{ wishlist.isInWishlist(product.id) ? '♥ In wishlist' : '♡ Add to wishlist' }}
-    </button>
-  </article>
+    <article v-else-if="product">
+      <img :src="product.image" :alt="product.title" />
+      <h1>{{ product.title }}</h1>
+      <p>{{ product.price }} €</p>
+      <p>{{ product.description }}</p>
+      <button @click="onAddToCart">Add to cart</button>
+      <button @click="onToggleWishlist">
+        {{ wishlist.isInWishlist(product.id) ? '♥ In wishlist' : '♡ Add to wishlist' }}
+      </button>
+    </article>
+  </div>
 </template>

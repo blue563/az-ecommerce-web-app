@@ -8,7 +8,9 @@ const { items } = storeToRefs(wishlist)
 </script>
 
 <template>
-  <h1>Wishlist</h1>
-  <p v-if="!items.length">Your wishlist is empty.</p>
-  <ProductGrid v-else :products="items" />
+  <div>
+    <h1>Wishlist</h1>
+    <p v-if="!items.length">Your wishlist is empty.</p>
+    <ProductGrid v-else :products="items" />
+  </div>
 </template>

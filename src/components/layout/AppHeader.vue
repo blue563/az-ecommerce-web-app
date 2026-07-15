@@ -35,7 +35,9 @@ const theme = useThemeStore()
       <router-link to="/" class="app-header__logo">🛍️ AZ Shop</router-link>
 
       <div v-if="auth.isAuthenticated" class="app-header__actions">
-        <router-link to="/wishlist">♡</router-link>
+        <router-link to="/wishlist">
+          ♡ <span v-if="wishlist.items.length !== 0">({{ wishlist.items.length }})</span>
+        </router-link>
         <router-link to="/cart">
           🛒 <span v-if="cart.totalCount">({{ cart.totalCount }})</span>
         </router-link>
