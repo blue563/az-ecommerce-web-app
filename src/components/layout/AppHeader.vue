@@ -2,6 +2,16 @@
 import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useProductsStore } from '@/stores/products'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+
+const auth = useAuthStore()
+const router = useRouter()
+
+function onLogout(){
+  auth.logout()
+  router.push({name: 'home'})
+}
 
 const store = useProductsStore()
 const { categories } = storeToRefs(store)
@@ -14,9 +24,15 @@ onMounted(() => store.loadCategories())
     <div class="app-header__top">
       <router-link to="/" class="app-header__logo">🛍️ AZ Shop</router-link>
 
-      <div class="app-header__actions">
+      <div v-if="auth.isAuthenticated" class="app-header__actions">
         <router-link to="/wishlist">♡</router-link>
         <router-link to="/cart">🛒</router-link>
+        <span>Hi, {{ auth.username }}</span>
+        <button @click="onLogout">Logout</button>
+      </div>
+
+      <div v-else class="app-header__actions">
+        <span>Hi, Log in to use cart and wishlist</span>
         <router-link to="/login">Login</router-link>
       </div>
     </div>
@@ -41,6 +57,7 @@ onMounted(() => store.loadCategories())
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-4);
     padding: var(--space-3) var(--space-5);
   }
 
@@ -49,15 +66,27 @@ onMounted(() => store.loadCategories())
     text-decoration: none;
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   &__actions {
     display: flex;
+    align-items: center;
     gap: var(--space-4);
+    flex-wrap: wrap;
+    justify-content: flex-end;
 
-    a {
+    a,
+    button,
+    span {
       color: white;
       text-decoration: none;
+      white-space: nowrap;
+      background: none;
+      border: none;
+      font: inherit;
+      cursor: pointer;
     }
   }
 
