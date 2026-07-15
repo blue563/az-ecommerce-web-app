@@ -5,9 +5,8 @@
     "types": ["vite/client"],
     "allowArbitraryExtensions": true,
 
-    "paths": {"@/*": ["./src/*"]}, //aggiunto per alias @/(pto 2)
-
-    /* Linting */
+    "paths": {"@/*": ["./src/*"]},
+    
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,

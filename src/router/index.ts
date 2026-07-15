@@ -10,7 +10,7 @@ const router = createRouter({
         { path: '/login', name: 'login', component:() => import('@/views/LoginView.vue')},
         { path: '/cart', name: 'cart', component: () => import('@/views/CartView.vue'), meta: {requiresAuth: true}},
         { path: '/wishlist', name: 'wishlist', component: () => import('@/views/WishlistView.vue'), meta: {requiresAuth: true}}
-    ],
+    ]
 })
 
 //to be sure user can't use wishlist and cart if it's not logged

@@ -24,5 +24,9 @@ div {
   @media (min-width: 640px) {
     grid-template-columns: repeat(3, 1fr);
   }
+  
+  @media (min-width: 960px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 </style>

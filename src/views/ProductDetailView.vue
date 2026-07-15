@@ -75,3 +75,23 @@ watch(() => route.params.id, loadProduct)//useful for future "related/advised pr
     </article>
   </div>
 </template>
+
+<style scoped lang="scss">
+
+img {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  article {
+    text-align: center;
+  }
+  img {
+    margin: 0 auto;
+    max-height: 220px;
+  }
+}
+</style>

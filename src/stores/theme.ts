@@ -13,5 +13,5 @@ export const useThemeStore = defineStore('theme', {
             localStorage.setItem('theme', this.theme)
             document.documentElement.setAttribute('data-theme', this.theme)
         },
-    },
+    }
 })

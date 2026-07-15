@@ -20,13 +20,13 @@ async function onSubmit() {
 </script>
 
 <template>
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit" class="login-form">
         <label>
-            Username
+            <span>Username</span>
             <input v-model="form.username" type="text" required/>
         </label>
         <label>
-            Password
+            <span>Password</span>
             <input v-model="form.password" type="password" required/>
         </label>
 
@@ -37,3 +37,17 @@ async function onSubmit() {
         </button>
     </form>
 </template>
+
+<style lang="scss">
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}
+</style>
