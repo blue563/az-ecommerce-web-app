@@ -1,19 +1,21 @@
 :root {
     --color-primary: #009900;
-    --color-bg: #adcc00;
-    --color-text: #1a1a1a;
+    --color-bg: #b6b5b5;
+    --color-text: rgba(0, 0, 0, 0.87);
     --space-4: 1rem;
     --radius-md: 8px;
 
-    --color-surface: #990099;
+    --color-surface: #55768E;
     --color-border: #000000;
     --color-header-dark: #131921;
     --color-header-light: #232f3e;
 }
 
 :root[data-theme='dark'] {
-    --color-bg: #000066;
-    --color-text: #ffffcc;
+    --color-bg: #121212;
+    --color-text: rgba(255, 255, 255, 0.87);
+
+    --color-surface: #3f5768;
 }
 
 .home__hero {
@@ -21,7 +23,7 @@
   background-position: center;
   border-radius: var(--radius-md);
   padding: var(--space-8) var(--space-5);
-  color: navy;
+  color: var(--color-text);
   margin-bottom: var(--space-6);
 
   h1 {

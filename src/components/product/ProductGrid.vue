@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import type { Product } from '@/types/product'
 import ProductCard from './ProductCard.vue';
+import SkeletonCard from '@/components/ui/SkeletonCard.vue';
 
-defineProps<{ products: Product[] }>()
+defineProps<{ products: Product[]; isLoading?: boolean }>()
 </script>
 
 <template>
-    <div>
-        <ProductCard v-for="product in products" :key="product.id" :product="product" />
+    <div class="grid">
+      <template v-if="isLoading">
+        <SkeletonCard v-for="n in 8" :key="n" />
+      </template>
+        <ProductCard v-else v-for="product in products" :key="product.id" :product="product" />
     </div>
 </template>
 

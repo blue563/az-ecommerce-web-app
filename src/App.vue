@@ -5,6 +5,15 @@ import AppHeader from '@/components/layout/AppHeader.vue'
 <template>
   <AppHeader />
   <main>
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </main>
 </template>
+
+<style>
+.fade-enter-active, .fade-leave-active { transition: opacity 0.15s ease; }
+.fade-enter-from, .fade-leave-to {opacity: 0; }
+</style>

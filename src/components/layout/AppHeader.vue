@@ -8,6 +8,8 @@ import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import { useWishlistStore } from '@/stores/wishlist'
 
+import { useThemeStore } from '@/stores/theme'
+
 const auth = useAuthStore()
 const router = useRouter()
 
@@ -23,6 +25,8 @@ const cart = useCartStore()
 const wishlist = useWishlistStore()
 
 onMounted(() => store.loadCategories())
+
+const theme = useThemeStore()
 </script>
 
 <template>
@@ -43,6 +47,8 @@ onMounted(() => store.loadCategories())
         <span>Hi, Log in to use cart and wishlist</span>
         <router-link to="/login">Login</router-link>
       </div>
+
+      <button @click="theme.toggle"  class="app-header__actions">{{  theme.theme === 'dark' ? '☀️' : '🌙' }}</button>
     </div>
 
     <nav class="app-header__categories-bar" aria-label="Product categories">

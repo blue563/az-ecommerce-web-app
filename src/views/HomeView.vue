@@ -21,13 +21,15 @@ watch(() => route.query.category, () => store.loadProducts(categoryFromRoute()))
 
 
 <template>
-    <div class="home__hero">
-        <h1>Best products in just one click</h1>
-    </div>
+    <div>
+        <div class="home__hero">
+            <h1>Best products in just one click</h1>
+        </div>
 
-    
-    <p v-if="isLoading">Loading...</p>
-    <p v-else-if="error">{{ error }}</p>
-    <ProductGrid v-else :products="products" />
+        
+        <p v-if="isLoading">Loading...</p>
+        <p v-else-if="error">{{ error }}</p>
+        <ProductGrid :products="products" :is-loading="isLoading" />
+    </div>
 
 </template>
