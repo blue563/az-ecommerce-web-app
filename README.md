@@ -14,18 +14,17 @@ E-commerce web app built with Vue 3 + TypeScript, using the Fake Store API.
 
 ## Setup
 
-\`\`\`bash:
+bash:
 npm install
 npm run dev
-\`\`\`
 
 ## Test / build
 
-\`\`\`bash:
+bash:
 npm run test
 npm run build
 npm run preview
-\`\`\`
+
 
 ## Demo login
 
