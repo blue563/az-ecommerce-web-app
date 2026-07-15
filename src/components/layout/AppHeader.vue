@@ -5,6 +5,9 @@ import { useProductsStore } from '@/stores/products'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 
+import { useCartStore } from '@/stores/cart'
+import { useWishlistStore } from '@/stores/wishlist'
+
 const auth = useAuthStore()
 const router = useRouter()
 
@@ -16,6 +19,9 @@ function onLogout(){
 const store = useProductsStore()
 const { categories } = storeToRefs(store)
 
+const cart = useCartStore()
+const wishlist = useWishlistStore()
+
 onMounted(() => store.loadCategories())
 </script>
 
@@ -26,7 +32,9 @@ onMounted(() => store.loadCategories())
 
       <div v-if="auth.isAuthenticated" class="app-header__actions">
         <router-link to="/wishlist">♡</router-link>
-        <router-link to="/cart">🛒</router-link>
+        <router-link to="/cart">
+          🛒 <span v-if="cart.totalCount">({{ cart.totalCount }})</span>
+        </router-link>
         <span>Hi, {{ auth.username }}</span>
         <button @click="onLogout">Logout</button>
       </div>
