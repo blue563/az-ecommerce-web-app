@@ -20,34 +20,95 @@ async function onSubmit() {
 </script>
 
 <template>
-    <form @submit.prevent="onSubmit" class="login-form">
-        <label>
-            <span>Username</span>
-            <input v-model="form.username" type="text" required/>
-        </label>
-        <label>
-            <span>Password</span>
-            <input v-model="form.password" type="password" required/>
-        </label>
+    <div class="login-page">
+        <form @submit.prevent="onSubmit" class="login-form">
+            <h1 class="login-form__title">Sign in</h1>
 
-        <p v-if="auth.error">{{ auth.error }}</p>
+            <label>
+                <span>Username</span>
+                <input v-model="form.username" type="text" required/>
+            </label>
+            <label>
+                <span>Password</span>
+                <input v-model="form.password" type="password" required/>
+            </label>
 
-        <button type="submit" :disabled="auth.isLoading">
-            {{ auth.isLoading ? 'Signing in...' : 'Sign in' }}
-        </button>
-    </form>
+            <p v-if="auth.error" class="login-form__error">{{ auth.error }}</p>
+
+            <button type="submit" class="login-form__submit" :disabled="auth.isLoading">
+                {{ auth.isLoading ? 'Signing in...' : 'Sign in' }}
+            </button>
+        </form>
+    </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
+.login-page {
+  display: flex;
+  justify-content: center;
+  padding-block: var(--space-6);
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  width: 100%;
+  max-width: 360px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+
+  &__title {
+    margin: 0 0 var(--space-2);
+    text-align: center;
+  }
+
+  &__error {
+    color: #c0392b;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  &__submit {
+    background: var(--color-header-dark, #131921);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: var(--space-3);
+    cursor: pointer;
+    font-weight: var(--font-weight-bold, 700);
+    margin-inline: var(--space-4);
+
+    &:hover:not(:disabled) {
+        background: var(--color-header-light, #232f3e);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+  }
 
   label {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+
+        span {
+            text-align: center;
+        }
+
+        input {
+            padding: var(--space-2);
+            border: 1px solid #999;
+            border-radius: 4px;
+            background: #ffffff;
+            color: #1a1a1a;
+            text-align: center;
+            margin-inline: var(--space-4);
+        }
   }
 }
 </style>
