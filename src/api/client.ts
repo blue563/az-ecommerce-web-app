@@ -9,9 +9,11 @@ export class ApiError extends Error {
     }
 }
 
-async function request<T>(path:string, init?: RequestInit): Promise<T> {
+async function request<T>(path: string, init?: RequestInit): Promise<T> {
     const response = await fetch(`${BASE_URL}${path}`, init)
-    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    if (!response.ok) {
+        throw new ApiError(`Request failed with status ${response.status}`, response.status)
+    }
     return (await response.json()) as T
 }
 

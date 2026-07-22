@@ -31,6 +31,15 @@ const theme = useThemeStore()
 
 const isMenuOpen = ref(false)
 watch(() => route.fullPath, () => { isMenuOpen.value = false })
+
+import { computed } from 'vue'
+
+const loginTarget = computed(() => {
+    if (route.name === 'login') {
+        return { name: 'login' }
+    }
+    return { name: 'login', query: { redirect: route.fullPath } }
+})
 </script>
 
 <template>
@@ -62,7 +71,7 @@ watch(() => route.fullPath, () => { isMenuOpen.value = false })
         </div>
         <div v-else class="app-header__actions-group">
           <span>Hi, Log in to use cart and wishlist</span>
-          <router-link to="/login">Login</router-link>
+          <router-link :to="loginTarget">Login</router-link>
         </div>
       </div>
     </div>
