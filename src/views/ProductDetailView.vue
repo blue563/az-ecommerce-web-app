@@ -8,7 +8,6 @@ import { useWishlistStore } from '@/stores/wishlist'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 
-
 const route = useRoute()
 const store = useProductsStore()
 
@@ -21,10 +20,10 @@ async function loadProduct() {
   isLoading.value = true
   error.value = null
 
-  try{
+  try {
     product.value = await store.loadProductById(id)
-  }catch (err){
-    error.value = 'Something went wrong during product loading.'
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Something went wrong during product loading.'
   } finally{
     isLoading.value = false
   }

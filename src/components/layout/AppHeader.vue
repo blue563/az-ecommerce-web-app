@@ -31,6 +31,15 @@ const theme = useThemeStore()
 
 const isMenuOpen = ref(false)
 watch(() => route.fullPath, () => { isMenuOpen.value = false })
+
+import { computed } from 'vue'
+
+const loginTarget = computed(() => {
+    if (route.name === 'login') {
+        return { name: 'login' }
+    }
+    return { name: 'login', query: { redirect: route.fullPath } }
+})
 </script>
 
 <template>
@@ -47,7 +56,13 @@ watch(() => route.fullPath, () => { isMenuOpen.value = false })
         ☰
       </button>
 
-      <button @click="theme.toggle" class="app-header__theme-toggle">{{  theme.theme === 'dark' ? '☀️' : '🌙' }}</button>
+      <button
+        @click="theme.toggle"
+        class="app-header__theme-toggle"
+        :aria-label="theme.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+      >
+        {{ theme.theme === 'dark' ? '☀️' : '🌙' }}
+      </button>
 
       <div class="app-header__actions" :class="{ 'app-header__actions--open': isMenuOpen }">
         <div v-if="auth.isAuthenticated" class="app-header__actions-group">
@@ -62,7 +77,7 @@ watch(() => route.fullPath, () => { isMenuOpen.value = false })
         </div>
         <div v-else class="app-header__actions-group">
           <span>Hi, Log in to use cart and wishlist</span>
-          <router-link to="/login">Login</router-link>
+          <router-link :to="loginTarget">Login</router-link>
         </div>
       </div>
     </div>

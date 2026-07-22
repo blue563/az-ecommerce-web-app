@@ -8,6 +8,6 @@ const emit = defineEmits<{
 <template>
     <div class="error" role="alert">
         <p>{{ message }}</p>
-        <button @click="emit('retry')"></button>
+        <button type="button" @click="emit('retry')">Retry</button>
     </div>
 </template>

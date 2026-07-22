@@ -1,6 +1,7 @@
 import { fetchProducts, fetchProductsByCategory, fetchCategories, fetchProductById } from "@/api/products";
 import type { Product, Category } from "@/types/product";
 import { defineStore } from "pinia";
+import { ApiError } from '@/api/client'
 
 interface ProductsState {
     products: Product[]
@@ -45,10 +46,16 @@ export const useProductsStore = defineStore(
 
         async loadProductById(id: number): Promise<Product> {
             const cached = this.products.find((p) => p.id === id)
-            //looking for the product inside cache first
             if (cached) return cached
-            //if product is not in cache, then it will be searched using fetch
-            return fetchProductById(id)
-        }
+
+            try {
+                return await fetchProductById(id)
+            } catch (err) {
+                if (err instanceof ApiError && err.status === 404) {
+                    throw new Error('Product not found.')
+                }
+                throw new Error('Something went wrong during product loading.')
+            }
+        },
     }
 })

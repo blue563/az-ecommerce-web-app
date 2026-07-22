@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 
 const auth = useAuthStore()
 const router = useRouter()
+const route = useRoute()
 
 const form = reactive({
     username: 'mor_2314',
@@ -14,7 +15,8 @@ const form = reactive({
 async function onSubmit() {
     const success = await auth.login({...form})
     if(success) {
-        router.push({name: 'home'})
+        const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/'
+        router.push(redirect)
     }
 }
 </script>
