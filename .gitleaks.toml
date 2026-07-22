@@ -1,0 +1,5 @@
+[allowlist]
+description = "Known false positives"
+regexes = [
+  '''abc123def456''',
+]
