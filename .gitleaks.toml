@@ -1,5 +1,8 @@
 [allowlist]
-description = "Known false positives"
+description = "Known false positive: placeholder token in old Nest-generated README"
+paths = [
+  '''backend/README\.md''',
+]
 regexes = [
   '''abc123def456''',
 ]
