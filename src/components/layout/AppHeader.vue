@@ -56,7 +56,13 @@ const loginTarget = computed(() => {
         ☰
       </button>
 
-      <button @click="theme.toggle" class="app-header__theme-toggle">{{  theme.theme === 'dark' ? '☀️' : '🌙' }}</button>
+      <button
+        @click="theme.toggle"
+        class="app-header__theme-toggle"
+        :aria-label="theme.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+      >
+        {{ theme.theme === 'dark' ? '☀️' : '🌙' }}
+      </button>
 
       <div class="app-header__actions" :class="{ 'app-header__actions--open': isMenuOpen }">
         <div v-if="auth.isAuthenticated" class="app-header__actions-group">

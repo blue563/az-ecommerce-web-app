@@ -7,8 +7,6 @@ import { useCartStore } from '@/stores/cart'
 import { useWishlistStore } from '@/stores/wishlist'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
-import { ApiError } from '@/api/client'
-
 
 const route = useRoute()
 const store = useProductsStore()

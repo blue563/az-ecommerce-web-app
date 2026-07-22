@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useProductsStore } from '@/stores/products';
 import ProductGrid from '@/components/product/ProductGrid.vue';
+import ErrorNotice from '@/components/ui/ErrorNotice.vue'
 
 
 const route = useRoute()
@@ -26,10 +27,12 @@ watch(() => route.query.category, () => store.loadProducts(categoryFromRoute()))
             <h1>Best products in just one click</h1>
         </div>
 
-        
-        <p v-if="isLoading">Loading...</p>
-        <p v-else-if="error">{{ error }}</p>
-        <ProductGrid :products="products" :is-loading="isLoading" />
+        <ErrorNotice
+            v-if="error"
+            :message="error"
+            @retry="store.loadProducts(categoryFromRoute())"
+        />
+        <ProductGrid v-else :products="products" :is-loading="isLoading" />
     </div>
 
 </template>
