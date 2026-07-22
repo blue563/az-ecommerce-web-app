@@ -7,6 +7,8 @@ import { useCartStore } from '@/stores/cart'
 import { useWishlistStore } from '@/stores/wishlist'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import { ApiError } from '@/api/client'
+
 
 const route = useRoute()
 const store = useProductsStore()
@@ -21,11 +23,13 @@ async function loadProduct() {
   error.value = null
 
   try {
-      product.value = await store.loadProductById(id)
+    product.value = await store.loadProductById(id)
   } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Something went wrong during product loading.'
+    error.value = err instanceof Error ? err.message : 'Something went wrong during product loading.'
+  } finally{
+    isLoading.value = false
   }
-    
+  
 }
 
 const cart = useCartStore()
